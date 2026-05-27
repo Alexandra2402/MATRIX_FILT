@@ -1,0 +1,84 @@
+C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_interface.sv {1 {vlog -work work -vopt -sv -stats=none C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_interface.sv
+QuestaSim-64 vlog 2024.1 Compiler 2024.02 Feb  1 2024
+-- Compiling interface AXIS_IN_Interface
+-- Compiling interface AXIS_OUT_Interface
+
+Top level modules:
+	--none--
+
+} {} {}} C:/Viv_prj24.2/MATRIX_FILT/ip/input_bram/sim/input_bram.v {1 {vlog -work work -vopt -stats=none C:/Viv_prj24.2/MATRIX_FILT/ip/input_bram/sim/input_bram.v
+QuestaSim-64 vlog 2024.1 Compiler 2024.02 Feb  1 2024
+-- Compiling module input_bram
+
+Top level modules:
+	input_bram
+
+} {} {}} C:/Viv_prj24.2/MATRIX_FILT/tb/matrix_filt_top_tb.sv {1 {vlog -work work -vopt -sv +incdir+C:/Viv_prj24.2/MATRIX_FILT/hdl -stats=none C:/Viv_prj24.2/MATRIX_FILT/tb/matrix_filt_top_tb.sv
+QuestaSim-64 vlog 2024.1 Compiler 2024.02 Feb  1 2024
+-- Compiling interface AXIS_IN_Interface
+-- Compiling interface AXIS_OUT_Interface
+-- Compiling package matrix_filt_top_tb_sv_unit
+-- Compiling module matrix_filt_tb
+
+Top level modules:
+	matrix_filt_tb
+
+} {} {}} C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_FSM.sv {1 {vlog -work work -vopt -sv -stats=none C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_FSM.sv
+QuestaSim-64 vlog 2024.1 Compiler 2024.02 Feb  1 2024
+-- Compiling interface AXIS_IN_Interface
+-- Compiling interface AXIS_OUT_Interface
+-- Compiling module matrix_filt_FSM
+
+Top level modules:
+	matrix_filt_FSM
+
+} {} {}} C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_define.sv {1 {vlog -work work -vopt -sv -stats=none C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_define.sv
+QuestaSim-64 vlog 2024.1 Compiler 2024.02 Feb  1 2024
+
+} {} {}} C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_top.sv {2 {vlog -work work -vopt -sv -stats=none C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_top.sv
+QuestaSim-64 vlog 2024.1 Compiler 2024.02 Feb  1 2024
+-- Compiling interface AXIS_IN_Interface
+-- Compiling interface AXIS_OUT_Interface
+-- Compiling module matrix_mult
+** Warning: ** while parsing file included at C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_top.sv(4)
+** at C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_mult.sv(7): (vlog-13314) Defaulting port 'data_line0_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+** Warning: ** while parsing file included at C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_top.sv(4)
+** at C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_mult.sv(8): (vlog-13314) Defaulting port 'data_line1_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+** Warning: ** while parsing file included at C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_top.sv(4)
+** at C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_mult.sv(9): (vlog-13314) Defaulting port 'data_line2_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+-- Compiling module matrix_filt_top
+
+Top level modules:
+	matrix_filt_top
+
+} {} {}} C:/Viv_prj24.2/MATRIX_FILT/ip/input_bram/simulation/blk_mem_gen_v8_4.v {1 {vlog -work work -vopt -stats=none C:/Viv_prj24.2/MATRIX_FILT/ip/input_bram/simulation/blk_mem_gen_v8_4.v
+QuestaSim-64 vlog 2024.1 Compiler 2024.02 Feb  1 2024
+-- Compiling module STATE_LOGIC_v8_4
+-- Compiling module beh_vlog_muxf7_v8_4
+-- Compiling module beh_vlog_ff_clr_v8_4
+-- Compiling module beh_vlog_ff_pre_v8_4
+-- Compiling module beh_vlog_ff_ce_clr_v8_4
+-- Compiling module write_netlist_v8_4
+-- Compiling module read_netlist_v8_4
+-- Compiling module blk_mem_axi_write_wrapper_beh_v8_4
+-- Compiling module blk_mem_axi_read_wrapper_beh_v8_4
+-- Compiling module blk_mem_axi_regs_fwd_v8_4
+-- Compiling module blk_mem_gen_v8_4_9_output_stage
+-- Compiling module blk_mem_gen_v8_4_9_softecc_output_reg_stage
+-- Compiling module blk_mem_gen_v8_4_9_mem_module
+-- Compiling module blk_mem_gen_v8_4_9
+
+Top level modules:
+	blk_mem_gen_v8_4_9
+
+} {} {}} C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_mult.sv {2 {vlog -work work -vopt -sv -stats=none C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_mult.sv
+QuestaSim-64 vlog 2024.1 Compiler 2024.02 Feb  1 2024
+-- Compiling module matrix_mult
+** Warning: C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_mult.sv(7): (vlog-13314) Defaulting port 'data_line0_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+** Warning: C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_mult.sv(8): (vlog-13314) Defaulting port 'data_line1_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+** Warning: C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_mult.sv(9): (vlog-13314) Defaulting port 'data_line2_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+
+Top level modules:
+	matrix_mult
+
+} {} {}}
