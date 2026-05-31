@@ -20,7 +20,7 @@ module matrix_filt_FSM (
     input logic last_i
 );
     
-typedef enum logic [2:0] {WRITE_ALL_BRAM, WRITE_ONE_BRAM, READ_BRAM, DIRECT_OUT_FIRST_ROW, DIRECT_OUT_LAST_ROW} state_t;
+typedef enum logic [2:0] {WRITE_ALL_BRAM, WRITE_ONE_BRAM, READ_BRAM, DIRECT_OUT_FIRST_ROW, DIRECT_OUT_LAST_ROW, DELAY} state_t;
 state_t state,next_state;
 logic [`IMG_ROWS_NUMB:0] row_cnt;
 logic [`IMG_COLS_NUMB-1:0] bram_waddr;
@@ -36,17 +36,15 @@ logic read_end;
 logic read_en;
 logic FSM_ready;
 logic direct_out;
-logic read_row_en;
 logic direct_read_start;
-logic valid_delay;
 logic [`IMG_COLS_NUMB-1:0] bram_waddr_delay;
 logic [2:0] write_bram;
-logic read_end_delay;
 logic [`IMG_ROWS_NUMB:0] write_row_cnt;
 logic [`IMG_ROWS_NUMB:0] read_row_cnt;
+logic wr_en; 
 
 assign write_bram_o = write_bram;
-assign FSM_ready_o = FSM_ready;
+// assign FSM_ready_o = FSM_ready;
 assign direct_out_o = direct_out;
 assign bram_waddr_o = bram_waddr_delay;
 assign bram_raddr_o = bram_raddr;
@@ -57,6 +55,24 @@ assign write_bram_number_o = write_bram_number;
 assign read_bram_number_o = read_bram_number;
 assign direct_read_start = direct_out ? 0 : !matr_mult_valid_i;
 
+always_ff @(posedge clk_i) begin
+end
+
+logic [`IMG_COLS_NUMB-1:0] bram_cnt;
+always_ff @(posedge clk_i) begin
+    if (~resetn_i)
+        bram_cnt <= 0;
+    else begin
+        if (state == READ_BRAM) begin
+            case({bram_wen, bram_ren}) 
+                2'b01 : bram_cnt <= bram_cnt + 1;
+                2'b10 : bram_cnt <= bram_cnt - 1;
+                default : bram_cnt <= bram_cnt;
+            endcase
+        end
+        else bram_cnt <= 0;
+    end
+end
 
 //output ready for axis_i
 always_ff @(posedge clk_i) begin
@@ -64,9 +80,11 @@ always_ff @(posedge clk_i) begin
         FSM_ready <= 0;
     else if (ready_en)
         FSM_ready <= 1;
-    // else if(write_row_cnt == 0)
-    //     FSM_ready <= 0;
-    else FSM_ready <= !matr_mult_valid_i || ready_i;
+    else FSM_ready <= (!matr_mult_valid_i || ready_i) && wr_en;
+end
+
+always_ff @(posedge clk_i) begin
+        FSM_ready_o <= FSM_ready;
 end
 
 //cnt for bram write
@@ -81,7 +99,7 @@ always_ff @(posedge clk_i) begin
             bram_waddr <= 0;
         else
             bram_waddr <= bram_waddr + 1;
-    end
+        end
     else  
         bram_wen <= 0;   
 end
@@ -166,10 +184,6 @@ always_ff @(posedge clk_i) begin
         write_bram <={write_bram[1:0], write_bram[2]};
 end
 
-always_ff @(posedge clk_i) begin 
-    read_end_delay <= read_end;
-end
-
 //read finish
 always_ff @(posedge clk_i) begin
     if (~resetn_i)
@@ -208,13 +222,15 @@ always_comb begin
     read_bram_number = 3'b111;
     next_state = state;
     ready_en = 0;
-    read_row_en = 0;
+    wr_en = 0;
     case (state) 
         WRITE_ALL_BRAM : begin
             ready_en = 1;
+            wr_en = 1;
             if (&full_bram && bram_wen) begin
                 next_state = READ_BRAM;
                 ready_en = 0; 
+                wr_en = 0;
             end
             else if (bram_waddr_delay == `IMG_COLUMNS-1 && write_bram_number == 1)
                 next_state = DIRECT_OUT_FIRST_ROW;
@@ -230,6 +246,7 @@ always_comb begin
                 read_bram_number = 3'b001;
                 direct_out = 1;
             end
+            wr_en = 1;
         end
         DIRECT_OUT_LAST_ROW: begin 
                 read_bram_number = 3'b010;
@@ -241,18 +258,30 @@ always_comb begin
             end
         end
         READ_BRAM : begin
-            if (read_end)
-                read_en = 0;
-            else
-                read_en = 1;
-            if (read_row_cnt == `IMG_ROWS-1 && (!matr_mult_valid_i || ready_i))
-                next_state = DIRECT_OUT_LAST_ROW;
-            else if (read_end && (!matr_mult_valid_i || ready_i))
-                next_state = WRITE_ONE_BRAM;
+            // if (row_cnt > 0) begin
+                if (bram_cnt > 0)
+                    wr_en = 1;
+                else wr_en = 0;
+                if (read_end)
+                    read_en = 0;
+                else
+                    read_en = 1;
+                if (read_row_cnt == `IMG_ROWS-1 && (!matr_mult_valid_i || ready_i))
+                    next_state = DIRECT_OUT_LAST_ROW;
+                else if (read_end && (!matr_mult_valid_i || ready_i))
+                    next_state = WRITE_ONE_BRAM;
+            // end
         end
         WRITE_ONE_BRAM : begin
-            if (bram_waddr==`IMG_COLUMNS-2)
-                next_state = READ_BRAM; 
+            wr_en = 1;
+            if (bram_waddr_delay ==`IMG_COLUMNS-1)
+                // next_state = READ_BRAM; 
+            next_state = DELAY;
+                wr_en = 0;
+        end
+        DELAY : begin
+            if (last_i)
+                next_state = READ_BRAM;
         end
     endcase
 end
