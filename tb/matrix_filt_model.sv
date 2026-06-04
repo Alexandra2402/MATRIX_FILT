@@ -109,7 +109,7 @@ task matrix_filt_model::OUTPUT_DATA_model();
     end
 
     $display("[%d] Reference Image Finally Read!", $time);
-    // $stop;
+    $stop;
 
 endtask
 

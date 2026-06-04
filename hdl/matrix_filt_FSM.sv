@@ -42,6 +42,7 @@ logic [2:0] write_bram;
 logic [`IMG_ROWS_NUMB:0] write_row_cnt;
 logic [`IMG_ROWS_NUMB:0] read_row_cnt;
 logic wr_en; 
+logic cnt_stop;
 
 assign write_bram_o = write_bram;
 // assign FSM_ready_o = FSM_ready;
@@ -94,12 +95,18 @@ always_ff @(posedge clk_i) begin
         bram_wen <= 0;
     end
     else if (valid_i && FSM_ready) begin
-        bram_wen <= 1;
-        if (bram_waddr == `IMG_COLUMNS-1)
+        // if (cnt_stop) begin
             bram_waddr <= 0;
-        else
-            bram_waddr <= bram_waddr + 1;
-        end
+            bram_wen <= 0; 
+        // end
+        // else begin
+            bram_wen <= 1;
+            if (bram_waddr == `IMG_COLUMNS-1)
+                bram_waddr <= 0;
+            else
+                bram_waddr <= bram_waddr + 1;
+            end
+        // end
     else  
         bram_wen <= 0;   
 end
@@ -120,12 +127,15 @@ always_ff @(posedge clk_i) begin
 end
 
     //row counter
+logic reset_read_cnt;
 always_ff @(posedge clk_i) begin
     if (~resetn_i)
         read_row_cnt <= 0;   
     else if (bram_raddr == `IMG_COLUMNS-1 && bram_ren) begin
-        if (read_row_cnt == `IMG_ROWS-1)
-            read_row_cnt <= 0;
+        if (read_row_cnt == `IMG_ROWS-1)// begin
+            // if (reset_read_cnt == 1)
+                read_row_cnt <= 0;
+        // end
         else
             read_row_cnt <= read_row_cnt + 1;
     end
@@ -223,11 +233,13 @@ always_comb begin
     next_state = state;
     ready_en = 0;
     wr_en = 0;
+    reset_read_cnt = 0;
+    cnt_stop = 0;
     case (state) 
         WRITE_ALL_BRAM : begin
             ready_en = 1;
             wr_en = 1;
-            if (&full_bram && bram_wen) begin
+            if (&full_bram/* && bram_wen*/) begin
                 next_state = READ_BRAM;
                 ready_en = 0; 
                 wr_en = 0;
@@ -256,34 +268,46 @@ always_comb begin
                 next_state = WRITE_ALL_BRAM;
                 read_en = 0;
             end
+            if (bram_raddr == `IMG_COLUMNS-1 && bram_ren)
+                reset_read_cnt = 1;
         end
         READ_BRAM : begin
-            // if (row_cnt > 0) begin
-                if (bram_cnt > 0)
-                    wr_en = 1;
-                else wr_en = 0;
-                if (read_end)
-                    read_en = 0;
-                else
-                    read_en = 1;
-                if (read_row_cnt == `IMG_ROWS-1 && (!matr_mult_valid_i || ready_i))
-                    next_state = DIRECT_OUT_LAST_ROW;
-                else if (read_end && (!matr_mult_valid_i || ready_i))
-                    next_state = WRITE_ONE_BRAM;
-            // end
+            if (write_row_cnt == `IMG_ROWS-1)
+                wr_en = 0;
+            else if (write_row_cnt == 0) 
+                wr_en = 0;  
+            else if (bram_cnt > 0)
+                wr_en = 1;
+            if (read_end)
+                read_en = 0;
+            else
+                read_en = 1;
+            if (read_row_cnt == `IMG_ROWS-1 && (!matr_mult_valid_i || ready_i)) begin
+                next_state = DIRECT_OUT_LAST_ROW;
+                wr_en = 0;
+            end
+            else if (read_end && (!matr_mult_valid_i || ready_i))
+                next_state = WRITE_ONE_BRAM;
         end
         WRITE_ONE_BRAM : begin
-            wr_en = 1;
-            if (bram_waddr_delay ==`IMG_COLUMNS-1)
-                // next_state = READ_BRAM; 
-            next_state = DELAY;
+            if (bram_waddr ==`IMG_COLUMNS-1) begin
+                next_state = DELAY;
+            end
+            else if (bram_waddr ==`IMG_COLUMNS-1)
                 wr_en = 0;
+            else if (write_row_cnt == 0) begin
+                wr_en = 0;
+                next_state = DELAY;
+            end
+            else wr_en = 1;
         end
         DELAY : begin
-            if (last_i)
-                next_state = READ_BRAM;
+            if (last_i || read_row_cnt == `IMG_ROWS-2)
+                next_state = READ_BRAM;  
+            if (write_row_cnt == 0) 
+                wr_en = 0;             
         end
     endcase
 end
 
-endmodule
+endmodule 
