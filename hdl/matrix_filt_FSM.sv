@@ -177,7 +177,7 @@ always_ff @(posedge clk_i) begin
         write_bram <= 3'b100;
     else if (read_row_cnt == 0)
         write_bram <= 3'b100;
-    else if (last_i)
+    else if (/*last_i*/bram_raddr == 0 && bram_ren)
         write_bram <={write_bram[1:0], write_bram[2]};
 end
 
@@ -274,14 +274,14 @@ always_comb begin
                 next_state = WRITE_ONE_BRAM;
         end
         WRITE_ONE_BRAM : begin
-            if (bram_waddr ==`IMG_COLUMNS-1 && valid_i) begin
+            if ((bram_waddr ==`IMG_COLUMNS-1 && valid_i) || write_row_cnt == 0) begin
                 next_state = DELAY;
                 // wr_en = 0;
             end
-            else if (write_row_cnt == 0) begin
-                // wr_en = 0;
-                next_state = DELAY;
-            end
+            // else if (write_row_cnt == 0) begin
+            //     // wr_en = 0;
+            //     next_state = DELAY;
+            // end
             else wr_en = 1;
         end
         DELAY : begin
