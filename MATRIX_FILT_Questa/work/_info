@@ -39,6 +39,118 @@ R0
 R1
 R0
 R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
 Z2 !s12c _opt2
 R1
 R0
@@ -1337,12 +1449,11 @@ n@_opt
 Z12 OL;O;2024.1;79
 R4
 T_opt1
-!s11d matrix_filt_model_sv_unit C:/Viv_prj24.2/MATRIX_FILT/MATRIX_FILT_Questa/work 2 AXIS_IN_Interface 1 C:/Viv_prj24.2/MATRIX_FILT/MATRIX_FILT_Questa/work AXIS_OUT_Interface 1 C:/Viv_prj24.2/MATRIX_FILT/MATRIX_FILT_Questa/work 
 R5
-!s110 1780598532
-V;]Qa`Y[K7G27Xh8>=[<[h1
+!s110 1781634333
+VS;d66NlG<nO`VfPAio@6h2
 R6
-=20-24b2b93593ed-6a21c704-106-14bc
+=6-24b2b93593ed-6a31951d-82-fec
 R1
 R7
 R8
@@ -1351,7 +1462,6 @@ R10
 R11
 n@_opt1
 R12
-R4
 T_opt2
 R5
 !s110 1780593514
@@ -1370,9 +1480,9 @@ R4
 YAXIS_IN_Interface
 Z13 2C:/Viv_prj24.2/MATRIX_FILT/tb/matrix_filt_top_tb.sv
 Z14 !s105 matrix_filt_top_tb_sv_unit
-Z15 DXx4 work 26 matrix_filt_top_tb_sv_unit 0 22 f94o7a4aFhWF_HXQ5LF5k3
+Z15 DXx4 work 26 matrix_filt_top_tb_sv_unit 0 22 a=GjU<;QI2J30]lKO8RGF1
 Z16 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
-Z17 !s110 1780598533
+Z17 !s110 1781634329
 !i10b 1
 !s100 _aJjVmRVao@2L[3hf0iOk3
 IFT`d@j9=b1<inTS[XoPW20
@@ -1381,14 +1491,14 @@ Z18 dC:/Viv_prj24.2/MATRIX_FILT/MATRIX_FILT_Questa
 Z19 w1779905362
 Z20 FC:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_interface.sv
 Z21 FC:/Viv_prj24.2/MATRIX_FILT/tb/matrix_filt_top_tb.sv
-!i122 6173
+!i122 6718
 L0 6 0
 Z22 VDg1SIo80bB@j0V0VzS_@n1
 Z23 OL;L;2024.1;79
 r1
 !s85 0
 31
-Z24 !s108 1780598533.000000
+Z24 !s108 1781634329.000000
 Z25 !s107 C:/Viv_prj24.2/MATRIX_FILT/tb/matrix_filt_model.sv|C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_interface.sv|C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_define.sv|C:/Viv_prj24.2/MATRIX_FILT/tb/matrix_filt_top_tb.sv|
 Z26 !s90 -reportprogress|300|-work|work|-vopt|-sv|+incdir+C:/Viv_prj24.2/MATRIX_FILT/hdl|+incdir+C:/Viv_prj24.2/MATRIX_FILT/tb|-stats=none|C:/Viv_prj24.2/MATRIX_FILT/tb/matrix_filt_top_tb.sv|
 !i113 0
@@ -1410,7 +1520,7 @@ R18
 R19
 R20
 R21
-!i122 6173
+!i122 6718
 L0 29 0
 R22
 R23
@@ -1435,7 +1545,7 @@ R18
 Z30 w1778093416
 Z31 8C:/Viv_prj24.2/MATRIX_FILT/ip/input_bram/simulation/blk_mem_gen_v8_4.v
 Z32 FC:/Viv_prj24.2/MATRIX_FILT/ip/input_bram/simulation/blk_mem_gen_v8_4.v
-!i122 6174
+!i122 6719
 L0 193 17
 R22
 R23
@@ -1443,11 +1553,11 @@ r1
 !s85 0
 31
 R24
-!s107 C:/Viv_prj24.2/MATRIX_FILT/ip/input_bram/simulation/blk_mem_gen_v8_4.v|
-Z33 !s90 -reportprogress|300|-work|work|-vopt|+incdir+C:/Viv_prj24.2/MATRIX_FILT/hdl|+incdir+C:/Viv_prj24.2/MATRIX_FILT/tb|-stats=none|C:/Viv_prj24.2/MATRIX_FILT/ip/input_bram/simulation/blk_mem_gen_v8_4.v|
+Z33 !s107 C:/Viv_prj24.2/MATRIX_FILT/ip/input_bram/simulation/blk_mem_gen_v8_4.v|
+Z34 !s90 -reportprogress|300|-work|work|-vopt|+incdir+C:/Viv_prj24.2/MATRIX_FILT/hdl|+incdir+C:/Viv_prj24.2/MATRIX_FILT/tb|-stats=none|C:/Viv_prj24.2/MATRIX_FILT/ip/input_bram/simulation/blk_mem_gen_v8_4.v|
 !i113 0
-Z34 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
-Z35 !s92 -work work +incdir+C:/Viv_prj24.2/MATRIX_FILT/hdl +incdir+C:/Viv_prj24.2/MATRIX_FILT/tb -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z35 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z36 !s92 -work work +incdir+C:/Viv_prj24.2/MATRIX_FILT/hdl +incdir+C:/Viv_prj24.2/MATRIX_FILT/tb -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
 R11
 vbeh_vlog_ff_clr_v8_4
 R29
@@ -1459,7 +1569,7 @@ R18
 R30
 R31
 R32
-!i122 6174
+!i122 6719
 L0 154 19
 R22
 R23
@@ -1467,11 +1577,11 @@ r1
 !s85 0
 31
 R24
-Z36 !s107 C:/Viv_prj24.2/MATRIX_FILT/ip/input_bram/simulation/blk_mem_gen_v8_4.v|
 R33
-!i113 0
 R34
+!i113 0
 R35
+R36
 R11
 vbeh_vlog_ff_pre_v8_4
 R29
@@ -1483,7 +1593,7 @@ R18
 R30
 R31
 R32
-!i122 6174
+!i122 6719
 L0 174 18
 R22
 R23
@@ -1491,11 +1601,11 @@ r1
 !s85 0
 31
 R24
-R36
 R33
-!i113 0
 R34
+!i113 0
 R35
+R36
 R11
 vbeh_vlog_muxf7_v8_4
 R29
@@ -1507,7 +1617,7 @@ R18
 R30
 R31
 R32
-!i122 6174
+!i122 6719
 L0 140 13
 R22
 R23
@@ -1515,11 +1625,11 @@ r1
 !s85 0
 31
 R24
-R36
 R33
-!i113 0
 R34
+!i113 0
 R35
+R36
 R11
 vblk_mem_axi_read_wrapper_beh_v8_4
 R29
@@ -1531,7 +1641,7 @@ R18
 R30
 R31
 R32
-!i122 6174
+!i122 6719
 L0 1315 222
 R22
 R23
@@ -1539,11 +1649,11 @@ r1
 !s85 0
 31
 R24
-R36
 R33
-!i113 0
 R34
+!i113 0
 R35
+R36
 R11
 vblk_mem_axi_regs_fwd_v8_4
 R29
@@ -1555,7 +1665,7 @@ R18
 R30
 R31
 R32
-!i122 6174
+!i122 6719
 L0 1538 62
 R22
 R23
@@ -1563,11 +1673,11 @@ r1
 !s85 0
 31
 R24
-R36
 R33
-!i113 0
 R34
+!i113 0
 R35
+R36
 R11
 vblk_mem_axi_write_wrapper_beh_v8_4
 R29
@@ -1579,7 +1689,7 @@ R18
 R30
 R31
 R32
-!i122 6174
+!i122 6719
 L0 1039 275
 R22
 R23
@@ -1587,11 +1697,11 @@ r1
 !s85 0
 31
 R24
-R36
 R33
-!i113 0
 R34
+!i113 0
 R35
+R36
 R11
 vblk_mem_gen_v8_4_9
 R29
@@ -1603,7 +1713,7 @@ R18
 R30
 R31
 R32
-!i122 6174
+!i122 6719
 L0 3457 1108
 R22
 R23
@@ -1611,11 +1721,11 @@ r1
 !s85 0
 31
 R24
-R36
 R33
-!i113 0
 R34
+!i113 0
 R35
+R36
 R11
 vblk_mem_gen_v8_4_9_mem_module
 R29
@@ -1627,7 +1737,7 @@ R18
 R30
 R31
 R32
-!i122 6174
+!i122 6719
 L0 1996 1455
 R22
 R23
@@ -1635,11 +1745,11 @@ r1
 !s85 0
 31
 R24
-R36
 R33
-!i113 0
 R34
+!i113 0
 R35
+R36
 R11
 vblk_mem_gen_v8_4_9_output_stage
 R29
@@ -1651,7 +1761,7 @@ R18
 R30
 R31
 R32
-!i122 6174
+!i122 6719
 L0 1608 295
 R22
 R23
@@ -1659,11 +1769,11 @@ r1
 !s85 0
 31
 R24
-R36
 R33
-!i113 0
 R34
+!i113 0
 R35
+R36
 R11
 vblk_mem_gen_v8_4_9_softecc_output_reg_stage
 R29
@@ -1675,7 +1785,7 @@ R18
 R30
 R31
 R32
-!i122 6174
+!i122 6719
 L0 1904 85
 R22
 R23
@@ -1683,15 +1793,15 @@ r1
 !s85 0
 31
 R24
-R36
 R33
-!i113 0
 R34
+!i113 0
 R35
+R36
 R11
 vinput_bram
 2C:/Viv_prj24.2/MATRIX_FILT/ip/input_bram/sim/input_bram.v
-Z37 !s110 1780598531
+R17
 !i10b 1
 !s100 za8TA:HPQ:GGnWoQUUBV12
 I0oHSdN[zZeNQif2^Umc>V3
@@ -1699,40 +1809,40 @@ R18
 R30
 8C:/Viv_prj24.2/MATRIX_FILT/ip/input_bram/sim/input_bram.v
 FC:/Viv_prj24.2/MATRIX_FILT/ip/input_bram/sim/input_bram.v
-!i122 6171
+!i122 6716
 L0 56 177
 R22
 R23
 r1
 !s85 0
 31
-Z38 !s108 1780598530.000000
+R24
 !s107 C:/Viv_prj24.2/MATRIX_FILT/ip/input_bram/sim/input_bram.v|
 !s90 -reportprogress|300|-work|work|-vopt|+incdir+C:/Viv_prj24.2/MATRIX_FILT/hdl|+incdir+C:/Viv_prj24.2/MATRIX_FILT/tb|-stats=none|C:/Viv_prj24.2/MATRIX_FILT/ip/input_bram/sim/input_bram.v|
 !i113 0
-R34
 R35
+R36
 R11
 vmatrix_filt_FSM
 2C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_FSM.sv
 R16
-Z39 !s110 1780598530
+!s110 1781634328
 !i10b 1
-!s100 ]l_6lzRzjQOJS14PCd?M31
-IR^J0XWTUOm_Y:J=Wh[[OT3
+!s100 b0?Ak]JYDBI2jDj;6oiRK0
+IcI6<8LV82e=l8@bBblKMI0
 S1
 R18
-w1780598376
+w1781632668
 8C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_FSM.sv
 FC:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_FSM.sv
-!i122 6167
-L0 5 309
+!i122 6712
+L0 5 291
 R22
 R23
 r1
 !s85 0
 31
-R38
+!s108 1781634328.000000
 !s107 C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_interface.sv|C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_define.sv|C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_FSM.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|+incdir+C:/Viv_prj24.2/MATRIX_FILT/hdl|+incdir+C:/Viv_prj24.2/MATRIX_FILT/tb|-stats=none|C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_FSM.sv|
 !i113 0
@@ -1742,29 +1852,29 @@ R11
 nmatrix_filt_@f@s@m
 Xmatrix_filt_model_sv_unit
 2C:/Viv_prj24.2/MATRIX_FILT/tb/matrix_filt_model.sv
-Z40 !s115 AXIS_OUT_Interface
-Z41 !s115 AXIS_IN_Interface
+Z37 !s115 AXIS_OUT_Interface
+Z38 !s115 AXIS_IN_Interface
 R16
-R37
-VDiKG]?EochP6AT_XNKVml3
+R17
+Vzhhlf0VB8mlOIZ`YN=0GM2
 r1
 !s85 0
 !i10b 1
-!s100 7z4FkaliO?Nda:@lV0H973
-IDiKG]?EochP6AT_XNKVml3
+!s100 1MJHaFd[A2<g6Y>1Ee6Vz1
+Izhhlf0VB8mlOIZ`YN=0GM2
 !i103 1
 S1
 R18
-Z42 w1780598527
-Z43 8C:/Viv_prj24.2/MATRIX_FILT/tb/matrix_filt_model.sv
-Z44 FC:/Viv_prj24.2/MATRIX_FILT/tb/matrix_filt_model.sv
+Z39 w1781634325
+Z40 8C:/Viv_prj24.2/MATRIX_FILT/tb/matrix_filt_model.sv
+Z41 FC:/Viv_prj24.2/MATRIX_FILT/tb/matrix_filt_model.sv
 R20
-Z45 FC:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_define.sv
-!i122 6172
-Z46 L0 9 0
+Z42 FC:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_define.sv
+!i122 6717
+Z43 L0 9 0
 R23
 31
-!s108 1780598531.000000
+R24
 !s107 C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_define.sv|C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_interface.sv|C:/Viv_prj24.2/MATRIX_FILT/tb/matrix_filt_model.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|+incdir+C:/Viv_prj24.2/MATRIX_FILT/hdl|+incdir+C:/Viv_prj24.2/MATRIX_FILT/tb|-stats=none|C:/Viv_prj24.2/MATRIX_FILT/tb/matrix_filt_model.sv|
 !i113 0
@@ -1785,12 +1895,12 @@ IiJkVlm^2DJNn1;ddk6=Uc1
 R14
 S1
 R18
-R42
-Z47 8C:/Viv_prj24.2/MATRIX_FILT/tb/matrix_filt_top_tb.sv
+R39
+Z44 8C:/Viv_prj24.2/MATRIX_FILT/tb/matrix_filt_top_tb.sv
 R21
-R43
-R44
-!i122 6173
+R40
+R41
+!i122 6718
 L0 7 41
 R23
 31
@@ -1804,7 +1914,7 @@ R11
 vmatrix_filt_top
 2C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_top.sv
 R16
-R39
+R17
 !i10b 1
 !s100 nP;1>d8?zMOGkbI?0_C7P0
 I1WE[=dDVf`nJMfYEb28]=2
@@ -1813,14 +1923,14 @@ R18
 w1779626996
 8C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_top.sv
 FC:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_top.sv
-!i122 6169
+!i122 6714
 L0 6 188
 R22
 R23
 r1
 !s85 0
 31
-R38
+R24
 !s107 C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_mult.sv|C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_interface.sv|C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_define.sv|C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_top.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|+incdir+C:/Viv_prj24.2/MATRIX_FILT/hdl|+incdir+C:/Viv_prj24.2/MATRIX_FILT/tb|-stats=none|C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_top.sv|
 !i113 0
@@ -1829,27 +1939,27 @@ R28
 R11
 Xmatrix_filt_top_tb_sv_unit
 R13
-R40
-R41
+R37
+R38
 R16
 R17
-Vf94o7a4aFhWF_HXQ5LF5k3
+Va=GjU<;QI2J30]lKO8RGF1
 r1
 !s85 0
 !i10b 1
-!s100 O_KFVL_Pb8l2nEkhKKI_Y2
-If94o7a4aFhWF_HXQ5LF5k3
+!s100 OAUhNEj8g[l=fXoLibR:;3
+Ia=GjU<;QI2J30]lKO8RGF1
 !i103 1
 S1
 R18
-R42
-R47
-R21
-R45
-R20
+R39
 R44
-!i122 6173
-R46
+R21
+R42
+R20
+R41
+!i122 6718
+R43
 R23
 31
 R24
@@ -1862,7 +1972,7 @@ R11
 vmatrix_mult
 2C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_mult.sv
 R16
-R39
+R17
 !i10b 1
 !s100 1R2<``4lD4DOK6NDdCX=Y2
 IaEnH7]lU0XAg4m9iajiX`0
@@ -1871,14 +1981,14 @@ R18
 w1779390980
 8C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_mult.sv
 FC:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_mult.sv
-!i122 6170
+!i122 6715
 L0 4 173
 R22
 R23
 r1
 !s85 0
 31
-R38
+R24
 !s107 C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_define.sv|C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_mult.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|+incdir+C:/Viv_prj24.2/MATRIX_FILT/hdl|+incdir+C:/Viv_prj24.2/MATRIX_FILT/tb|-stats=none|C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_mult.sv|
 !i113 0
@@ -1895,7 +2005,7 @@ R18
 R30
 R31
 R32
-!i122 6174
+!i122 6719
 L0 680 357
 R22
 R23
@@ -1903,11 +2013,11 @@ r1
 !s85 0
 31
 R24
-R36
 R33
-!i113 0
 R34
+!i113 0
 R35
+R36
 R11
 vSTATE_LOGIC_v8_4
 R29
@@ -1919,7 +2029,7 @@ R18
 R30
 R31
 R32
-!i122 6174
+!i122 6719
 L0 118 21
 R22
 R23
@@ -1927,11 +2037,11 @@ r1
 !s85 0
 31
 R24
-R36
 R33
-!i113 0
 R34
+!i113 0
 R35
+R36
 R11
 n@s@t@a@t@e_@l@o@g@i@c_v8_4
 vwrite_netlist_v8_4
@@ -1944,7 +2054,7 @@ R18
 R30
 R31
 R32
-!i122 6174
+!i122 6719
 L0 211 467
 R22
 R23
@@ -1952,9 +2062,9 @@ r1
 !s85 0
 31
 R24
-R36
 R33
-!i113 0
 R34
+!i113 0
 R35
+R36
 R11

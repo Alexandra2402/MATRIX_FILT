@@ -9,9 +9,14 @@
 class matrix_filt_model;
     
     rand bit ready_signal;
+    rand bit valid_signal;
 
     constraint c_ready_dist {
         ready_signal dist {1 := 80, 0 := 20};
+    }
+
+    constraint c_valid_dist {
+        valid_signal dist {1 := 70, 0 := 30};
     }
 
     virtual AXIS_IN_Interface.master axis_in;
@@ -49,11 +54,11 @@ task matrix_filt_model::INPUT_DATA_model();
 
     while(!$feof(fid_input_file)) begin
         @(posedge axis_in.aclk);
-        if (axis_in.tready) begin
-            val = $urandom_range(0,10);
+        if (axis_in.tready/*(axis_in.tvalid && axis_in.tready) || !axis_in.tvalid*/) begin
+            val = valid_signal;
             if (val) begin
                 status = $fread(input_data,fid_input_file);
-                if (col_cnt==`IMG_COLUMNS-1)
+                if (col_cnt ==`IMG_COLUMNS-1)
                     col_cnt = 0;
                 else
                     col_cnt = col_cnt + 1;
@@ -105,7 +110,7 @@ task matrix_filt_model::OUTPUT_DATA_model();
         end
         if (!this.randomize())
             $error("Randomization failed");
-        axis_out.tready = ready_signal;//$urandom_range(0,10);
+        axis_out.tready = 1;//ready_signal;//$urandom_range(0,10);
     end
 
     $display("[%d] Reference Image Finally Read!", $time);

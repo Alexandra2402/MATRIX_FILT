@@ -42,10 +42,10 @@ logic [2:0] write_bram;
 logic [`IMG_ROWS_NUMB:0] write_row_cnt;
 logic [`IMG_ROWS_NUMB:0] read_row_cnt;
 logic wr_en; 
-logic cnt_stop;
+logic reset_wr_cnt;
 
 assign write_bram_o = write_bram;
-// assign FSM_ready_o = FSM_ready;
+assign FSM_ready_o = FSM_ready;
 assign direct_out_o = direct_out;
 assign bram_waddr_o = bram_waddr_delay;
 assign bram_raddr_o = bram_raddr;
@@ -84,10 +84,6 @@ always_ff @(posedge clk_i) begin
     else FSM_ready <= (!matr_mult_valid_i || ready_i) && wr_en;
 end
 
-always_ff @(posedge clk_i) begin
-        FSM_ready_o <= FSM_ready;
-end
-
 //cnt for bram write
 always_ff @(posedge clk_i) begin
     if (~resetn_i) begin
@@ -95,18 +91,12 @@ always_ff @(posedge clk_i) begin
         bram_wen <= 0;
     end
     else if (valid_i && FSM_ready) begin
-        // if (cnt_stop) begin
-            bram_waddr <= 0;
-            bram_wen <= 0; 
-        // end
-        // else begin
             bram_wen <= 1;
             if (bram_waddr == `IMG_COLUMNS-1)
                 bram_waddr <= 0;
             else
                 bram_waddr <= bram_waddr + 1;
-            end
-        // end
+        end
     else  
         bram_wen <= 0;   
 end
@@ -127,15 +117,12 @@ always_ff @(posedge clk_i) begin
 end
 
     //row counter
-logic reset_read_cnt;
 always_ff @(posedge clk_i) begin
     if (~resetn_i)
         read_row_cnt <= 0;   
     else if (bram_raddr == `IMG_COLUMNS-1 && bram_ren) begin
-        if (read_row_cnt == `IMG_ROWS-1)// begin
-            // if (reset_read_cnt == 1)
+        if (read_row_cnt == `IMG_ROWS-1)
                 read_row_cnt <= 0;
-        // end
         else
             read_row_cnt <= read_row_cnt + 1;
     end
@@ -157,7 +144,7 @@ end
 always_ff @(posedge clk_i) begin
     if(~resetn_i)
         last_row <= 0;
-    else if (row_cnt == `IMG_ROWS-2 && last_i/* && FSM_ready*/)
+    else if (row_cnt == `IMG_ROWS-2 && last_i)
         last_row <= 1;
     else if (state == WRITE_ALL_BRAM)
         last_row <= 0;
@@ -233,13 +220,12 @@ always_comb begin
     next_state = state;
     ready_en = 0;
     wr_en = 0;
-    reset_read_cnt = 0;
-    cnt_stop = 0;
+    reset_wr_cnt = 0;
     case (state) 
         WRITE_ALL_BRAM : begin
             ready_en = 1;
             wr_en = 1;
-            if (&full_bram/* && bram_wen*/) begin
+            if (&full_bram) begin
                 next_state = READ_BRAM;
                 ready_en = 0; 
                 wr_en = 0;
@@ -268,8 +254,6 @@ always_comb begin
                 next_state = WRITE_ALL_BRAM;
                 read_en = 0;
             end
-            if (bram_raddr == `IMG_COLUMNS-1 && bram_ren)
-                reset_read_cnt = 1;
         end
         READ_BRAM : begin
             if (write_row_cnt == `IMG_ROWS-1)
@@ -290,22 +274,20 @@ always_comb begin
                 next_state = WRITE_ONE_BRAM;
         end
         WRITE_ONE_BRAM : begin
-            if (bram_waddr ==`IMG_COLUMNS-1) begin
+            if (bram_waddr ==`IMG_COLUMNS-1 && valid_i) begin
                 next_state = DELAY;
+                // wr_en = 0;
             end
-            else if (bram_waddr ==`IMG_COLUMNS-1)
-                wr_en = 0;
             else if (write_row_cnt == 0) begin
-                wr_en = 0;
+                // wr_en = 0;
                 next_state = DELAY;
             end
             else wr_en = 1;
         end
         DELAY : begin
-            if (last_i || read_row_cnt == `IMG_ROWS-2)
-                next_state = READ_BRAM;  
-            if (write_row_cnt == 0) 
-                wr_en = 0;             
+            wr_en = 0;
+            if (last_i || read_row_cnt == `IMG_ROWS-2 || bram_waddr == 0)
+                next_state = READ_BRAM; 
         end
     endcase
 end
