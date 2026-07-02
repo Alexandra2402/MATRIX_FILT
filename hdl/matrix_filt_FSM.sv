@@ -67,7 +67,12 @@ always_ff @(posedge clk_i) begin
         if (state == READ_BRAM) begin
             case({bram_wen, bram_ren}) 
                 2'b01 : bram_cnt <= bram_cnt + 1;
-                2'b10 : bram_cnt <= bram_cnt - 1;
+                2'b10 : begin 
+                    if (bram_cnt > 0)
+                        bram_cnt <= bram_cnt - 1;
+                    else 
+                        bram_cnt <= 0;
+                end
                 default : bram_cnt <= bram_cnt;
             endcase
         end
@@ -177,7 +182,7 @@ always_ff @(posedge clk_i) begin
         write_bram <= 3'b100;
     else if (read_row_cnt == 0)
         write_bram <= 3'b100;
-    else if (/*last_i*/bram_raddr == 0 && bram_ren)
+    else if (bram_ren && bram_raddr == 1)
         write_bram <={write_bram[1:0], write_bram[2]};
 end
 
@@ -187,7 +192,7 @@ always_ff @(posedge clk_i) begin
         read_end <= 0;
     else if (bram_raddr==`IMG_COLUMNS-1 && (!matr_mult_valid_i || ready_i))
         read_end <= 1;
-    else if (!matr_mult_valid_i || ready_i)
+    else 
         read_end <= 0;
 end
 
@@ -244,7 +249,10 @@ always_comb begin
                 read_bram_number = 3'b001;
                 direct_out = 1;
             end
-            wr_en = 1;
+            if (&full_bram)
+                wr_en = 0;
+            else
+                wr_en = 1;
         end
         DIRECT_OUT_LAST_ROW: begin 
                 read_bram_number = 3'b010;
@@ -270,18 +278,21 @@ always_comb begin
                 next_state = DIRECT_OUT_LAST_ROW;
                 wr_en = 0;
             end
-            else if (read_end && (!matr_mult_valid_i || ready_i))
+            else if (read_end /*&& (!matr_mult_valid_i || ready_i)*/)
                 next_state = WRITE_ONE_BRAM;
         end
         WRITE_ONE_BRAM : begin
             if ((bram_waddr ==`IMG_COLUMNS-1 && valid_i) || write_row_cnt == 0) begin
-                next_state = DELAY;
-                // wr_en = 0;
+                if (read_row_cnt == `IMG_ROWS-1)    
+                    next_state = /*DELAY*/DIRECT_OUT_LAST_ROW;
+                else
+                    next_state = /*DELAY*/READ_BRAM;
+                wr_en = 0;
             end
-            // else if (write_row_cnt == 0) begin
-            //     // wr_en = 0;
-            //     next_state = DELAY;
-            // end
+            else if (write_row_cnt == 0) begin
+                // wr_en = 0;
+                next_state = DELAY;
+            end
             else wr_en = 1;
         end
         DELAY : begin
