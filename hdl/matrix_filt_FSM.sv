@@ -159,9 +159,9 @@ end
 always_ff @(posedge clk_i) begin
     if(~resetn_i) 
         full_bram <= 0;   
-    else if (bram_waddr_delay == `IMG_COLUMNS-2 && bram_wen)
+    else if (bram_waddr == `IMG_COLUMNS-2 && bram_wen)
         full_bram <= full_bram + 1;
-    else if (write_row_cnt == `IMG_COLUMNS-1)
+    else if (write_row_cnt == `IMG_ROWS-1)
         full_bram <= 0; 
 end
 
@@ -190,7 +190,7 @@ end
 always_ff @(posedge clk_i) begin
     if (~resetn_i)
         read_end <= 0;
-    else if (bram_raddr==`IMG_COLUMNS-1 && (!matr_mult_valid_i || ready_i))
+    else if (bram_raddr==`IMG_COLUMNS-1 && ready_i)
         read_end <= 1;
     else 
         read_end <= 0;
@@ -232,10 +232,7 @@ always_comb begin
                 next_state = READ_BRAM;
                 ready_en = 0; 
                 wr_en = 0;
-            end
-            else if (bram_waddr_delay == `IMG_COLUMNS-2) begin
-                ready_en = 0; 
-                wr_en = 0;
+                read_en = 1;
             end
             else begin
                 ready_en = 1;
@@ -287,7 +284,7 @@ always_comb begin
                 wr_en = 0;
                 read_en = 0;
             end
-            else if (read_end && read_row_cnt != `IMG_ROWS-1/*&& (!matr_mult_valid_i || ready_i)*/)
+            else if (read_end /*&& (!matr_mult_valid_i || ready_i)*/)
                 next_state = WRITE_ONE_BRAM;
         end
         WRITE_ONE_BRAM : begin
