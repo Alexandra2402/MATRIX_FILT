@@ -140,7 +140,13 @@ always_comb begin
 end
 
 always_ff @(posedge axis_i.aclk) begin
-    if (!mult_valid || axis_o.tready) begin
+    if (~axis_i.aresetn) begin
+        data_line_reg <= '{default:0};
+        bram_ren_delay <= '0;
+        direct_out_delay <= '0;
+        read_bram_number_delay <= '0;
+    end
+    else if (!mult_valid || axis_o.tready) begin
         data_line_reg[1][0] <= data_line1;
         data_line_reg[1][1] <= data_line2;
         data_line_reg[1][2] <= data_line3;

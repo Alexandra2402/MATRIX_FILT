@@ -77,7 +77,7 @@ end
 
 always_ff @(posedge clk_i) begin
     if (~resetn_i) begin
-        direct_out_reg_delay <= '0;
+        direct_out_reg_delay <= '{default: '0};
     end
     else if (!valid || ready_i) begin
         direct_out_reg_delay[0] <= data_line1_i[1];

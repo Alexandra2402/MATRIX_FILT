@@ -42,6 +42,10 @@ module matrix_filt_tb;
     initial begin
         #1000
         aresetn = 1;
+        #1000000
+        aresetn = 0;
+        #10
+        aresetn = 1;
     end
 
 endmodule

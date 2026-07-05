@@ -12,14 +12,14 @@ class matrix_filt_model;
     rand bit valid_signal;
 
     constraint c_ready_dist {
-        ready_signal dist {1 := 80, 0 := 20};
+        // ready_signal dist {1 := 80, 0 := 20};
         // ready_signal dist {1 := 99, 0 := 1};
-        // ready_signal dist {1 := 1, 0 := 99};
+        ready_signal dist {1 := 1, 0 := 99};
     }
 
     constraint c_valid_dist {
-        valid_signal dist {1 := 5, 0 := 95};
-        // valid_signal dist {1 := 1, 0 := 99};
+        // valid_signal dist {1 := 55, 0 := 45};
+        valid_signal dist {1 := 1, 0 := 99};
         // valid_signal dist {1 := 99, 0 := 1};
     }
 
@@ -58,22 +58,32 @@ task matrix_filt_model::INPUT_DATA_model();
 
     while(!$feof(fid_input_file)) begin
         @(posedge axis_in.aclk);
-        if (axis_in.tready/*(axis_in.tvalid && axis_in.tready) || !axis_in.tvalid*/) begin
-            val = valid_signal;
-            if (val) begin
-                status = $fread(input_data,fid_input_file);
-                if (col_cnt ==`IMG_COLUMNS-1)
-                    col_cnt = 0;
-                else
-                    col_cnt = col_cnt + 1;
-            end
+        if (~axis_in.aresetn) begin
+            $fseek(fid_input_file, 0, 0);
+            axis_in.tdata = 0;
+            axis_in.tvalid = 0;
+            val = 0;
+            col_cnt = 0;
+            input_data = 0;
         end
         else begin
-            input_data = input_data;
-            val = val;
+            if (axis_in.tready/*(axis_in.tvalid && axis_in.tready) || !axis_in.tvalid*/) begin
+                val = valid_signal;
+                if (val) begin
+                    status = $fread(input_data,fid_input_file);
+                    if (col_cnt ==`IMG_COLUMNS-1)
+                        col_cnt = 0;
+                    else
+                        col_cnt = col_cnt + 1;
+                end
+            end
+            else begin
+                input_data = input_data;
+                val = val;
+            end
+            axis_in.tdata = input_data;
+            axis_in.tvalid = val;
         end
-        axis_in.tdata = input_data;
-        axis_in.tvalid = val;
     end
     axis_in.tdata = 0;
     axis_in.tvalid = 0;
@@ -99,22 +109,30 @@ task matrix_filt_model::OUTPUT_DATA_model();
 
     while($ftell(fid_ref_file)!=640*512) begin
         @(posedge axis_out.aclk);
-        if(axis_out.tready && axis_out.tvalid) begin
-            byte_counter = byte_counter + 1;
-            status = $fread(tmp0,fid_ref_file);
-            ref_file_data = tmp0;
-            axis_data = signed'(axis_out.tdata);
-            if (axis_data!=ref_file_data) begin
-                $display("[%d] DATA COMPARE TO REFERENCE FAILED!",$time);
-                $display("[%d] REFERENCE: %d",$time,ref_file_data);
-                $display("[%d] AXI STREAM OUT DATA: %d",$time,axis_data);
-                $display("[%d] PIXEL NUBMER: %d", $time, byte_counter);
-                $stop;
-            end
+         if (~axis_in.aresetn) begin
+            $fseek (fid_ref_file, 0, 0);
+            byte_counter = 0;
+            ref_file_data = 0;
+            axis_data = 0;
         end
-        if (!this.randomize())
-            $error("Randomization failed");
-        axis_out.tready = ready_signal;
+        else begin
+            if(axis_out.tready && axis_out.tvalid) begin
+                byte_counter = byte_counter + 1;
+                status = $fread(tmp0,fid_ref_file);
+                ref_file_data = tmp0;
+                axis_data = signed'(axis_out.tdata);
+                if (axis_data!=ref_file_data) begin
+                    $display("[%d] DATA COMPARE TO REFERENCE FAILED!",$time);
+                    $display("[%d] REFERENCE: %d",$time,ref_file_data);
+                    $display("[%d] AXI STREAM OUT DATA: %d",$time,axis_data);
+                    $display("[%d] PIXEL NUBMER: %d", $time, byte_counter);
+                    $stop;
+                end
+            end
+            if (!this.randomize())
+                $error("Randomization failed");
+            axis_out.tready = ready_signal;
+        end
     end
 
     $display("[%d] Reference Image Finally Read!", $time);
