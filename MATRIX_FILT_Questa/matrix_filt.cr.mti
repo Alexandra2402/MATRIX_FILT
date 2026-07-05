@@ -32,15 +32,6 @@ QuestaSim-64 vlog 2024.1 Compiler 2024.02 Feb  1 2024
 Top level modules:
 	matrix_filt_tb
 
-} {} {}} C:/Viv_prj24.2/MATRIX_FILT/tb/matrix_filt_model.sv {1 {vlog -work work -vopt -sv +incdir+C:/Viv_prj24.2/MATRIX_FILT/hdl +incdir+C:/Viv_prj24.2/MATRIX_FILT/tb -stats=none C:/Viv_prj24.2/MATRIX_FILT/tb/matrix_filt_model.sv
-QuestaSim-64 vlog 2024.1 Compiler 2024.02 Feb  1 2024
--- Compiling interface AXIS_IN_Interface
--- Compiling interface AXIS_OUT_Interface
--- Compiling package matrix_filt_model_sv_unit
-
-Top level modules:
-	--none--
-
 } {} {}} C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_define.sv {1 {vlog -work work -vopt -sv +incdir+C:/Viv_prj24.2/MATRIX_FILT/hdl +incdir+C:/Viv_prj24.2/MATRIX_FILT/tb -stats=none C:/Viv_prj24.2/MATRIX_FILT/hdl/matrix_filt_define.sv
 QuestaSim-64 vlog 2024.1 Compiler 2024.02 Feb  1 2024
 
