@@ -18,6 +18,7 @@ module matrix_mult (
 localparam logic signed [6:0] KERNEL_COEFF [0:2][0:2] = '{'{-3, -3, -3},
                                                           '{-3, 32, -3},
                                                           '{-3, -3, -3}};
+// (* use_dsp = "true" *)
 logic signed [`TDATA_WIDTH*2-1:0] data_reg [0:8];
 logic signed [`TDATA_WIDTH*2+3:0] sum_reg [0:7];
 logic signed [`TDATA_WIDTH*2:0] shift_reg; 
@@ -35,26 +36,11 @@ assign valid_o = valid;
 assign data_o =  (direct_out_delay[10] || data_cnt == 0 || data_cnt == `IMG_COLUMNS-1) ? direct_out_reg_delay[10] : slice_data;
 assign valid = data_en_delay[10];
 
-// always_ff @(posedge clk_i) begin
-//     if (~resetn_i) begin
-//         data_o <= 0;
-//         valid_o <= 0;
-//         last_o <= 0;
-//     end
-//     else if (/*!valid || */ready_i) begin
-//         valid_o <= valid;
-//         last_o <= last;
-//         if (direct_out_delay[10] || data_cnt == 0 || data_cnt == `IMG_COLUMNS-1)
-//             data_o <= direct_out_reg_delay[10];
-//         else
-//             data_o <= slice_data;
-//     end
-// end
-
 always_ff @(posedge clk_i) begin 
-    if (~resetn_i)
-        slice_data <= 0;
-    else if (!valid || ready_i) begin
+    // if (~resetn_i)
+    //     slice_data <= 0;
+    // else 
+        if (!valid || ready_i) begin
         if (shift_reg[16] == 1)
                 slice_data <= 0;
         else if (shift_reg > 255)
@@ -65,9 +51,10 @@ always_ff @(posedge clk_i) begin
 end
 
 always_ff @(posedge clk_i) begin
-    if (~resetn_i)
-        direct_out_delay <= 0;
-    else if (!valid || ready_i) begin
+    // if (~resetn_i)
+    //     direct_out_delay <= 0;
+    // else 
+        if (!valid || ready_i) begin
         direct_out_delay[0] <= direct_out_i;
         for (int i = 1; i <= 10; i++) begin
             direct_out_delay[i] <= direct_out_delay[i-1];
@@ -109,8 +96,8 @@ always_ff @(posedge clk_i) begin
 end
 
 always_ff @(posedge clk_i) begin
-    if (~resetn_i) 
-        last <= 0;
+    // if (~resetn_i) 
+    //     last <= 0;
     if (data_cnt == `IMG_COLUMNS-2 && ready_i)
         last <= 1;
     else 
@@ -118,16 +105,17 @@ always_ff @(posedge clk_i) begin
 end
 
 always_ff @(posedge clk_i ) begin 
-    if (!resetn_i)
-        shift_reg <= 0;
-    else if ((!valid || ready_i))
+    // if (!resetn_i)
+    //     shift_reg <= 0;
+    // else 
+        if ((!valid || ready_i))
         shift_reg <= sum_reg[7] >> `SHIFT_NUMB; 
 end
 
 always_ff @(posedge clk_i) begin
-    if (!resetn_i) 
-        data_reg <= '{default: '0};
-    else begin
+    // if (!resetn_i) 
+    //     data_reg <= '{default: '0};
+    // else begin
         if ((!valid || ready_i)) begin
             data_reg[0] <= KERNEL_COEFF[0][0]*$signed({1'b0,data_line0_i[0]});
             data_reg[1] <= KERNEL_COEFF[0][1]*$signed({1'b0,data_line0_i[1]});
@@ -139,14 +127,15 @@ always_ff @(posedge clk_i) begin
             data_reg[7] <= KERNEL_COEFF[2][1]*$signed({1'b0,data_line2_i[1]});
             data_reg[8] <= KERNEL_COEFF[2][2]*$signed({1'b0,data_line2_i[2]});
         end
-    end
+    // end
 end
 
 always_ff @(posedge clk_i) begin 
-    if (!resetn_i) begin
-        data_reg_delay_line <= '{default: '0};
-    end 
-    else if ((!valid || ready_i)) begin
+    // if (!resetn_i) begin
+    //     data_reg_delay_line <= '{default: '0};
+    // end 
+    // else 
+        if ((!valid || ready_i)) begin
         for (int line = 1; line <= 7; line++) begin
             data_reg_delay_line[line][1] <= data_reg[line + 1];
             for (int tap = 2; tap <= line; tap++) begin

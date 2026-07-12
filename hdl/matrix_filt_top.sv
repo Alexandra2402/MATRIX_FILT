@@ -1,7 +1,6 @@
 
 `include "matrix_filt_define.sv"
 `include "matrix_filt_interface.sv"
-`include "matrix_mult.sv"
 
 module matrix_filt_top (
     AXIS_IN_Interface.slave axis_i,

@@ -12,14 +12,14 @@ class matrix_filt_model;
     rand bit valid_signal;
 
     constraint c_ready_dist {
-        // ready_signal dist {1 := 80, 0 := 20};
+        ready_signal dist {1 := 80, 0 := 20};
         // ready_signal dist {1 := 99, 0 := 1};
-        ready_signal dist {1 := 1, 0 := 99};
+        // ready_signal dist {1 := 1, 0 := 99};
     }
 
     constraint c_valid_dist {
-        // valid_signal dist {1 := 55, 0 := 45};
-        valid_signal dist {1 := 1, 0 := 99};
+        valid_signal dist {1 := 55, 0 := 45};
+        // valid_signal dist {1 := 1, 0 := 99};
         // valid_signal dist {1 := 99, 0 := 1};
     }
 

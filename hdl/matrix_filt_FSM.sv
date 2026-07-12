@@ -30,7 +30,7 @@ logic bram_ren;
 logic ready_en;
 logic [2:0] write_bram_number;
 logic [2:0] read_bram_number;
-logic last_row;
+// logic last_row;
 logic [1:0] full_bram;
 logic read_end;
 logic read_en;
@@ -42,7 +42,7 @@ logic [2:0] write_bram;
 logic [`IMG_ROWS_NUMB:0] write_row_cnt;
 logic [`IMG_ROWS_NUMB:0] read_row_cnt;
 logic wr_en; 
-logic reset_wr_cnt;
+
 
 assign write_bram_o = write_bram;
 assign FSM_ready_o = FSM_ready;
@@ -146,14 +146,14 @@ always_ff @(posedge clk_i) begin
 end
 
 //last row flag
-always_ff @(posedge clk_i) begin
-    if(~resetn_i)
-        last_row <= 0;
-    else if (row_cnt == `IMG_ROWS-2 && last_i)
-        last_row <= 1;
-    else if (state == WRITE_ALL_BRAM)
-        last_row <= 0;
-end
+// always_ff @(posedge clk_i) begin
+//     if(~resetn_i)
+//         last_row <= 0;
+//     else if (row_cnt == `IMG_ROWS-2 && last_i)
+//         last_row <= 1;
+//     else if (state == WRITE_ALL_BRAM)
+//         last_row <= 0;
+// end
 
 //fill first 3 line at start
 always_ff @(posedge clk_i) begin
@@ -225,7 +225,6 @@ always_comb begin
     next_state = state;
     ready_en = 0;
     wr_en = 0;
-    reset_wr_cnt = 0;
     case (state) 
         WRITE_ALL_BRAM : begin
             if (&full_bram) begin
